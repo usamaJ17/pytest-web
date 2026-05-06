@@ -26,7 +26,9 @@ def _print_banner(url: str) -> None:
     else:
         cyan = dim = reset = ""
     sys.stdout.write(f"{cyan}{BANNER}{reset}")
-    sys.stdout.write(f"  {dim}v{__version__}{reset}   {cyan}{url}{reset}   {dim}(Ctrl+C to stop){reset}\n\n")
+    sys.stdout.write(
+        f"  {dim}v{__version__}{reset}   {cyan}{url}{reset}   {dim}(Ctrl+C to stop){reset}\n\n"
+    )
     sys.stdout.flush()
 
 
