@@ -85,7 +85,14 @@ def pytest_collection_finish() -> None:
 
 
 def pytest_runtest_logstart(nodeid: str, location) -> None:
-    _post({"event": "test_start", "nodeid": nodeid})
+    if not WEBHOOK:
+        return
+    body = json.dumps({"event": "test_start", "nodeid": nodeid, "run_id": RUN_ID}).encode()
+    req = urllib.request.Request(WEBHOOK, data=body, headers={"Content-Type": "application/json"})
+    try:
+        urllib.request.urlopen(req, timeout=2.0)
+    except Exception:
+        pass
 
 
 def pytest_runtest_logreport(report) -> None:

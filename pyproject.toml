@@ -16,6 +16,7 @@ keywords = ["pytest", "testing", "web", "ui", "runner"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
+    "Framework :: Pytest",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -45,9 +46,11 @@ dev = [
 ]
 
 [project.urls]
-Homepage   = "https://github.com/usamaJ17/pytest-web"
-Repository = "https://github.com/usamaJ17/pytest-web"
-Issues     = "https://github.com/usamaJ17/pytest-web/issues"
+Homepage      = "https://github.com/usamaJ17/pytest-web"
+Repository    = "https://github.com/usamaJ17/pytest-web"
+Issues        = "https://github.com/usamaJ17/pytest-web/issues"
+Changelog     = "https://github.com/usamaJ17/pytest-web/releases"
+"Bug Tracker" = "https://github.com/usamaJ17/pytest-web/issues"
 
 [project.scripts]
 pytest-web       = "pytest_web.cli:main"

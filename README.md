@@ -1,6 +1,15 @@
 # pytest-web
 
+[![PyPI version](https://img.shields.io/pypi/v/pytest-web.svg)](https://pypi.org/project/pytest-web/)
+[![Python versions](https://img.shields.io/pypi/pyversions/pytest-web.svg)](https://pypi.org/project/pytest-web/)
+[![CI](https://github.com/usamaJ17/pytest-web/actions/workflows/ci.yml/badge.svg)](https://github.com/usamaJ17/pytest-web/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A lightweight local web UI for discovering, selecting, and running pytest suites — with real-time pass/fail status, filtering, env-var injection, and on-demand Allure reports.
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/1027324f-a461-472d-81ac-7110ffeffc43" autoplay loop muted playsinline width="100%"></video>
+</div>
 
 ## Install
 
@@ -39,6 +48,10 @@ Click **Fetch Tests** (or press Enter in the path/args box) to collect all tests
 - Type in the **filter box** to search by test name
 - Click any counter (**passed / failed / skipped**) to filter to that status — click again to clear
 
+### Parameterized tests
+
+Every `@pytest.mark.parametrize` variant is auto-expanded as a separate, individually selectable row (e.g. `test_addition[1-2-3]`, `test_addition[10-20-30]`, …) — no setup needed, since pytest-web uses pytest's own collection. You can run a single combination, a few, or all of them.
+
 ### Run controls
 
 - **Workers** — number of parallel workers (`-n`). Overrides any `-n` in `pytest.ini addopts`.
@@ -74,14 +87,7 @@ If you use [Allure](https://allurereport.org/) for test reporting, pytest-web ca
 ### Requirements
 
 Install the Allure CLI globally (separate from the Python package):
-
-```bash
-# macOS
-brew install allure
-
-# Linux — download from https://github.com/allure-framework/allure2/releases
-# and place the `allure` binary on your PATH
-```
+https://allurereport.org/docs/v3/install/
 
 ### Setup
 

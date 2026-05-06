@@ -5,6 +5,32 @@ import threading
 import time
 import webbrowser
 
+from pytest_web import __version__
+
+BANNER = r"""
+                 __            __                     __
+    ____  __  __/ /____  _____/ /_     _      _____  / /_
+   / __ \/ / / / __/ _ \/ ___/ __/____| | /| / / _ \/ __ \
+  / /_/ / /_/ / /_/  __(__  ) /_/_____/ |/ |/ /  __/ /_/ /
+ / .___/\__, /\__/\___/____/\__/      |__/|__/\___/_.___/
+/_/    /____/
+"""
+
+
+def _print_banner(url: str) -> None:
+    use_color = sys.stdout.isatty() and os.environ.get("NO_COLOR") is None
+    if use_color:
+        cyan = "\033[36m"
+        dim = "\033[2m"
+        reset = "\033[0m"
+    else:
+        cyan = dim = reset = ""
+    sys.stdout.write(f"{cyan}{BANNER}{reset}")
+    sys.stdout.write(
+        f"  {dim}v{__version__}{reset}   {cyan}{url}{reset}   {dim}(Ctrl+C to stop){reset}\n\n"
+    )
+    sys.stdout.flush()
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -29,7 +55,7 @@ def main() -> None:
     os.environ["PYTEST_WEB_CWD"] = cwd
 
     url = f"http://{args.host}:{args.port}"
-    print(f"\n  pytest-web  →  {url}   (Ctrl+C to stop)\n")
+    _print_banner(url)
 
     if not args.no_browser:
 

@@ -182,6 +182,7 @@ async def discover(body: DiscoverRequest):
             sys.executable,
             "-m",
             "pytest",
+            f"--rootdir={PROJECT_CWD}",
             "--collect-only",
             "-q",
             "-p",
@@ -252,11 +253,14 @@ async def run(body: RunRequest):
         extra_args = _strip_keyword_filters(extra_args)
         run_id = uuid.uuid4().hex
 
-        # Always pass -n explicitly so it overrides any -n N baked into the
-        # project's pytest.ini addopts. Disabling xdist via "-p no:xdist"
-        # would make any "-n" in addopts an unrecognised argument and crash
-        # pytest, so we keep xdist enabled and rely on it being a hard dep.
-        cmd = [sys.executable, "-m", "pytest", *body.nodeids, *extra_args]
+        cmd = [
+            sys.executable,
+            "-m",
+            "pytest",
+            f"--rootdir={PROJECT_CWD}",
+            *body.nodeids,
+            *extra_args,
+        ]
         cmd += ["-n", str(body.workers)]
         cmd += ["-p", "pytest_web.plugin"]
 
