@@ -8,7 +8,7 @@
 A lightweight local web UI for discovering, selecting, and running pytest suites — with real-time pass/fail status, filtering, env-var injection, and on-demand Allure reports.
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/1027324f-a461-472d-81ac-7110ffeffc43" autoplay loop muted playsinline width="100%"></video>
+  <video src="https://github.com/user-attachments/assets/31937871-3192-46ca-9ef8-f576ff54f0f2" autoplay loop muted playsinline width="100%"></video>
 </div>
 
 ## Install
