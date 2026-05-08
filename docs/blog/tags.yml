@@ -1,0 +1,24 @@
+pytest:
+  label: pytest
+  permalink: /pytest
+  description: Posts about pytest and testing in Python
+
+testing:
+  label: testing
+  permalink: /testing
+  description: Software testing tips and workflows
+
+python:
+  label: python
+  permalink: /python
+  description: Python development
+
+developer-tools:
+  label: developer tools
+  permalink: /developer-tools
+  description: Tools that make development faster and easier
+
+allure:
+  label: allure
+  permalink: /allure
+  description: Allure reporting for test suites
