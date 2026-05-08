@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([["833"],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Stop editing your test files just to run a subset \u2014 use pytest-web instead","permalink":"/pytest-web/blog/introducing-pytest-web","unlisted":false,"date":"2026-05-07T00:00:00.000Z"}]}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([["839"],{1912(s){s.exports=JSON.parse('{"blogBasePath":"/pytest-web/blog","blogTitle":"Blog","authorsListPath":"/pytest-web/blog/authors"}')}}]);
