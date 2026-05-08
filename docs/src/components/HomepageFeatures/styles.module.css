@@ -1,0 +1,162 @@
+/* ── Feature cards ──────────────────────────────────────────────── */
+.features {
+  padding: 4rem 0;
+  width: 100%;
+}
+
+.featureCard {
+  padding: 1.5rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.featureEmoji {
+  font-size: 2.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.featureTitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.featureDesc {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Install strip ───────────────────────────────────────────────── */
+.installStrip {
+  background: var(--ifm-color-primary);
+  padding: 2.5rem 0;
+  color: white;
+}
+
+.installInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.installLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.installCode {
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Why section ─────────────────────────────────────────────────── */
+.whySection {
+  padding: 5rem 0;
+  background: var(--ifm-background-surface-color);
+}
+
+.whyInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 996px) {
+  .whyInner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.whyText h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.whySubtitle {
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.whyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.whyList li {
+  padding: 0.45rem 0;
+  padding-left: 1.6rem;
+  position: relative;
+  font-size: 0.97rem;
+  color: var(--ifm-color-emphasis-800);
+  line-height: 1.6;
+}
+
+.whyList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+
+/* ── Fake terminal block ─────────────────────────────────────────── */
+.whyCode {
+  display: flex;
+  justify-content: center;
+}
+
+.codeBlock {
+  background: #1e1e2e;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.codeHeader {
+  background: #2a2a3e;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.codeTitle {
+  color: #888;
+  font-size: 0.78rem;
+  margin-left: 0.5rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.codePre {
+  margin: 0;
+  padding: 1.4rem 1.5rem;
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: #cdd6f4;
+  background: transparent;
+  font-family: var(--ifm-font-family-monospace);
+  white-space: pre;
+  overflow-x: auto;
+}
