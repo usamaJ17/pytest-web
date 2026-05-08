@@ -46,7 +46,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage      = "https://github.com/usamaJ17/pytest-web"
+Homepage      = "https://usamaj17.github.io/pytest-web"
 Repository    = "https://github.com/usamaJ17/pytest-web"
 Issues        = "https://github.com/usamaJ17/pytest-web/issues"
 Changelog     = "https://github.com/usamaJ17/pytest-web/releases"
