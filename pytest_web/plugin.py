@@ -48,9 +48,7 @@ def _ensure_worker() -> None:
     with _worker_lock:
         if _worker_started:
             return
-        threading.Thread(
-            target=_worker_loop, daemon=True, name="pytest-web-poster"
-        ).start()
+        threading.Thread(target=_worker_loop, daemon=True, name="pytest-web-poster").start()
         _worker_started = True
 
 
