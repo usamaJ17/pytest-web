@@ -217,6 +217,89 @@ header {
 .theme-select option,
 .theme-select optgroup { background: var(--bg-elevated); color: var(--text); }
 
+/* ── Editor picker (custom dropdown — native select can't show icons) ── */
+.editor-picker { position: relative; }
+.editor-picker-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 8px;
+  height: 28px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.editor-picker-btn:hover { border-color: var(--accent); color: var(--text); }
+.editor-picker-name { line-height: 1; }
+.editor-picker-caret {
+  font-size: 9px;
+  color: var(--text-muted);
+  transition: transform 0.15s;
+}
+.editor-picker[data-open="true"] .editor-picker-caret { transform: rotate(180deg); }
+.editor-picker-menu {
+  position: absolute;
+  right: 0;
+  top: 32px;
+  min-width: 150px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+  overflow: hidden;
+}
+.editor-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+.editor-option:hover { background: var(--bg-hover); color: var(--text); }
+.editor-option[data-active="true"] { color: var(--accent); }
+
+.editor-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.editor-icon-vscode      { background-image: url("/static/icons/visual-studio-code.svg"); }
+.editor-icon-cursor      { background-image: url("/static/icons/cursor-ai.svg"); }
+.editor-icon-pycharm     { background-image: url("/static/icons/jetbrains-pycharm.svg"); }
+.editor-icon-antigravity { background-image: url("/static/icons/google-antigravity.svg"); }
+
+/* ── File open-in-editor button ──────────────────────────────────── */
+.file-open-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+}
+.file-header:hover .file-open-btn { opacity: 0.7; }
+.file-open-btn:hover { opacity: 1 !important; color: var(--accent); background: var(--bg-hover); }
+.file-open-btn svg { display: block; }
+
 /* ── WS badge ──────────────────────────────────────────────────── */
 .ws-status {
   font-family: var(--font-mono);

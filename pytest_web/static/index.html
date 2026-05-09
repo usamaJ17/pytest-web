@@ -20,6 +20,28 @@
         <option value="pink">✿ Pink</option>
         <option value="forest">❧ Forest</option>
       </select>
+      <div class="editor-picker" id="editor-picker" data-open="false">
+        <button class="editor-picker-btn" id="editor-btn"
+                title="Editor used to open test files" aria-haspopup="listbox" aria-expanded="false">
+          <span class="editor-icon editor-icon-vscode" id="editor-btn-icon"></span>
+          <span class="editor-picker-name" id="editor-btn-name">VS Code</span>
+          <span class="editor-picker-caret">▾</span>
+        </button>
+        <div class="editor-picker-menu" id="editor-menu" role="listbox" hidden>
+          <div class="editor-option" data-editor="vscode" role="option">
+            <span class="editor-icon editor-icon-vscode"></span><span>VS Code</span>
+          </div>
+          <div class="editor-option" data-editor="cursor" role="option">
+            <span class="editor-icon editor-icon-cursor"></span><span>Cursor</span>
+          </div>
+          <div class="editor-option" data-editor="pycharm" role="option">
+            <span class="editor-icon editor-icon-pycharm"></span><span>PyCharm</span>
+          </div>
+          <div class="editor-option" data-editor="antigravity" role="option">
+            <span class="editor-icon editor-icon-antigravity"></span><span>Antigravity</span>
+          </div>
+        </div>
+      </div>
       <div id="ws-status" class="ws-status" title="Disconnected" data-connected="false">●&nbsp;WS</div>
     </div>
   </header>
