@@ -21,6 +21,8 @@ const state = {
     url: null,
     loading: false,
   },
+  editor: 'vscode',
+  cwd: '',
 };
 
 const STATUS = {
@@ -226,7 +228,20 @@ function buildFileGroup(file, nodeids) {
   const arrow  = mk('span', 'group-arrow', '▾');
   const name   = mk('span', 'file-name', file);
   const count  = mk('span', 'file-count', String(nodeids.length));
-  header.append(arrow, name, count);
+
+  const openBtn = mk('button', 'file-open-btn');
+  openBtn.type  = 'button';
+  openBtn.title = 'Open file in selected editor';
+  openBtn.innerHTML =
+    '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" '
+    + 'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+    + '<path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 13v6H5V5h6"/></svg>';
+  openBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    openInEditor(file);
+  });
+
+  header.append(arrow, name, count, openBtn);
   header.addEventListener('click', () => {
     const body  = group.querySelector('.group-body');
     const isHidden = body.hidden;
@@ -571,6 +586,7 @@ async function fetchTests() {
       body:    JSON.stringify({ args: $('args').value.trim() }),
     });
     const data = await res.json();
+    if (data.cwd) state.cwd = data.cwd;
 
     if (data.error) {
       showError('Collection failed:\n\n' + data.error);
@@ -863,6 +879,93 @@ function initListeners() {
   });
 }
 
+// ── Editor picker ─────────────────────────────────────────────────
+const EDITORS = {
+  vscode:      { name: 'VS Code',     iconClass: 'editor-icon-vscode' },
+  cursor:      { name: 'Cursor',      iconClass: 'editor-icon-cursor' },
+  pycharm:     { name: 'PyCharm',     iconClass: 'editor-icon-pycharm' },
+  antigravity: { name: 'Antigravity', iconClass: 'editor-icon-antigravity' },
+};
+
+function setEditor(key) {
+  if (!EDITORS[key]) key = 'vscode';
+  state.editor = key;
+  const e = EDITORS[key];
+  $('editor-btn-name').textContent = e.name;
+  $('editor-btn-icon').className   = 'editor-icon ' + e.iconClass;
+  for (const opt of document.querySelectorAll('.editor-option')) {
+    opt.dataset.active = (opt.dataset.editor === key) ? 'true' : 'false';
+  }
+  try { localStorage.setItem('pw.editor', key); } catch (_) {}
+}
+
+function loadEditor() {
+  const saved = localStorage.getItem('pw.editor') || 'vscode';
+  setEditor(saved);
+}
+
+function initEditorPicker() {
+  const wrap = $('editor-picker');
+  const btn  = $('editor-btn');
+  const menu = $('editor-menu');
+  if (!wrap || !btn || !menu) return;
+
+  const close = () => {
+    wrap.dataset.open = 'false';
+    menu.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+  };
+  const open = () => {
+    wrap.dataset.open = 'true';
+    menu.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+  };
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (menu.hidden) open(); else close();
+  });
+  for (const opt of menu.querySelectorAll('.editor-option')) {
+    opt.addEventListener('click', () => { setEditor(opt.dataset.editor); close(); });
+  }
+  document.addEventListener('click', e => {
+    if (!menu.hidden && !wrap.contains(e.target)) close();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !menu.hidden) close();
+  });
+}
+
+function buildEditorURL(absPath, line) {
+  // Forward slashes work on Windows too for these schemes (vscode://file/C:/...).
+  const path = absPath.replace(/\\/g, '/');
+  const ln   = line || 1;
+  switch (state.editor) {
+    case 'cursor':      return `cursor://file/${path}:${ln}`;
+    case 'antigravity': return `antigravity://file/${path}:${ln}`;
+    case 'pycharm':     return `pycharm://open?file=${encodeURIComponent(path)}&line=${ln}`;
+    case 'vscode':
+    default:            return `vscode://file/${path}:${ln}`;
+  }
+}
+
+function openInEditor(file, line) {
+  if (!state.cwd) {
+    showError('Cannot open file: project path is unknown. Fetch tests first.');
+    return;
+  }
+  const cwd  = state.cwd.replace(/\\/g, '/').replace(/\/$/, '');
+  const rel  = String(file).replace(/\\/g, '/').replace(/^\//, '');
+  const url  = buildEditorURL(`${cwd}/${rel}`, line);
+  // Anchor click is the most reliable trigger for custom URL schemes
+  const a = document.createElement('a');
+  a.href = url;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 // ── Theme ─────────────────────────────────────────────────────────
 const THEMES = ['light', 'dark', 'purple', 'pink', 'forest'];
 
@@ -888,6 +991,8 @@ function initThemeSwitcher() {
 document.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   initThemeSwitcher();
+  initEditorPicker();
+  loadEditor();
   initListeners();
   loadPrefs();
   initWS();

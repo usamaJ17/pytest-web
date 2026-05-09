@@ -209,9 +209,13 @@ async def discover(body: DiscoverRequest):
         # exit 5 = no tests collected (not an error)
         if not nodeids and p.returncode not in (0, 5):
             error_text = stderr_bytes.decode(errors="replace").strip()
-            return {"nodeids": [], "error": error_text or f"pytest exited {p.returncode}"}
+            return {
+                "nodeids": [],
+                "cwd": PROJECT_CWD,
+                "error": error_text or f"pytest exited {p.returncode}",
+            }
 
-        return {"nodeids": nodeids}
+        return {"nodeids": nodeids, "cwd": PROJECT_CWD}
     finally:
         try:
             os.unlink(collect_file)
