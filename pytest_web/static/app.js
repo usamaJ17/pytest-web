@@ -231,11 +231,7 @@ function buildFileGroup(file, nodeids) {
 
   const openBtn = mk('button', 'file-open-btn');
   openBtn.type  = 'button';
-  openBtn.title = 'Open file in selected editor';
-  openBtn.innerHTML =
-    '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" '
-    + 'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
-    + '<path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 13v6H5V5h6"/></svg>';
+  openBtn.title = `Open in ${EDITORS[state.editor]?.name || 'editor'}`;
   openBtn.addEventListener('click', e => {
     e.stopPropagation();
     openInEditor(file);
@@ -895,6 +891,13 @@ function setEditor(key) {
   $('editor-btn-icon').className   = 'editor-icon ' + e.iconClass;
   for (const opt of document.querySelectorAll('.editor-option')) {
     opt.dataset.active = (opt.dataset.editor === key) ? 'true' : 'false';
+  }
+  // Drives the per-file open-button icon via CSS attribute selector;
+  // changing this updates every file row instantly without re-rendering.
+  document.documentElement.dataset.editor = key;
+  // Refresh tooltips on existing file-open buttons
+  for (const btn of document.querySelectorAll('.file-open-btn')) {
+    btn.title = `Open in ${e.name}`;
   }
   try { localStorage.setItem('pw.editor', key); } catch (_) {}
 }

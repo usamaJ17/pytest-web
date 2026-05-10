@@ -128,3 +128,26 @@ The `$ pytest ...` command at the bottom updates live as you change selections, 
 ## Themes
 
 Use the theme selector (top-right) to switch between **Light**, **Dark**, **Purple**, **Pink**, and **Forest** themes. Your preference is saved to `localStorage`.
+
+---
+
+## Open in editor
+
+Hover any file row in the test list and you'll see a small **logo of your selected IDE** with a ↗ indicator. Click it to open that file in your editor.
+
+Pick the editor from the dropdown next to the theme selector (top-right). Supported:
+
+- **VS Code** (default)
+- **Cursor**
+- **PyCharm**
+- **Antigravity**
+
+Works on Linux, macOS, and Windows — pytest-web triggers the editor's URL scheme (`vscode://`, `cursor://`, `pycharm://`, `antigravity://`), which the OS hands off to whichever app is registered for it.
+
+:::note
+Switching the editor in the dropdown updates the icon on every file row instantly. Your choice is saved to `localStorage` and restored on reload.
+:::
+
+:::tip
+If clicking the icon does nothing, your editor isn't registered as a URL scheme handler for that protocol. For VS Code and Cursor this is set up automatically by their installers. For PyCharm, install **JetBrains Toolbox** which registers the `pycharm://` scheme system-wide.
+:::
