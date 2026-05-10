@@ -284,21 +284,53 @@ header {
 
 /* ── File open-in-editor button ──────────────────────────────────── */
 .file-open-btn {
-  background: none;
-  border: none;
-  color: var(--text-muted);
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
-  padding: 2px 5px;
-  border-radius: 3px;
-  display: inline-flex;
-  align-items: center;
   flex-shrink: 0;
-  opacity: 0;
-  transition: opacity 0.15s, color 0.15s, background 0.15s;
+  opacity: 0.85;
+  transition: opacity 0.15s, background-color 0.15s, border-color 0.15s;
 }
-.file-header:hover .file-open-btn { opacity: 0.7; }
-.file-open-btn:hover { opacity: 1 !important; color: var(--accent); background: var(--bg-hover); }
-.file-open-btn svg { display: block; }
+/* Editor icon comes from the selected IDE — driven by data-editor on <html> */
+[data-editor="vscode"]      .file-open-btn { background-image: url("/static/icons/visual-studio-code.svg"); }
+[data-editor="cursor"]      .file-open-btn { background-image: url("/static/icons/cursor-ai.svg"); }
+[data-editor="pycharm"]     .file-open-btn { background-image: url("/static/icons/jetbrains-pycharm.svg"); }
+[data-editor="antigravity"] .file-open-btn { background-image: url("/static/icons/google-antigravity.svg"); }
+
+/* Small "open" indicator (↗) in the bottom-right so the action reads as a link */
+.file-open-btn::after {
+  content: "↗";
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+  color: var(--text-dim);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.file-open-btn:hover {
+  opacity: 1;
+  background-color: var(--bg-hover);
+  border-color: var(--border);
+}
+.file-open-btn:hover::after {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 
 /* ── WS badge ──────────────────────────────────────────────────── */
 .ws-status {
